@@ -20,6 +20,7 @@ for chart in charts/*; do
     touch "$JSON_SCHEMA"
   fi
   yq eval-all --tojson "select(fileIndex == 0) * select(filename == \"$YAML_SCHEMA\")" definitions.schema.yaml "${chart}"/values.schema.yaml > "$JSON_SCHEMA"
+  cat "$JSON_SCHEMA"
 done
 
 echo "done"
