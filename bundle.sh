@@ -17,7 +17,7 @@ for chart in charts/*; do
   if [ ! -f "$JSON_SCHEMA" ] 
   then
     echo "File $FILE does not exist"
-    touch "$JSON_SCHEMA"
+    mkdir -p "$JSON_SCHEMA"
     ls "$JSON_SCHEMA"
   fi
   yq eval-all --tojson 'select(fileIndex == 0) * select(filename == \"$chart\"/values.schema.yaml)' definitions.schema.yaml "${chart}"/values.schema.yaml > "${chart}"/values.schema.json
