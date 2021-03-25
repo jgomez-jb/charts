@@ -13,7 +13,6 @@ for chart in charts/*; do
   # See https://mikefarah.gitbook.io/yq/commands/merge
   # and https://mikefarah.gitbook.io/yq/usage/convert
   JSON_SCHEMA="${chart}/values.schema.json"
-  ls "$JSON_SCHEMA"
   if [ ! -f "$JSON_SCHEMA" ] 
   then
     echo "File $FILE does not exist"
