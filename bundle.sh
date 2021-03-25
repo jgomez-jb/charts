@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xeo pipefail
+set -eo pipefail
 
 echo -n "Bundling all of the charts..."
 
@@ -13,13 +13,13 @@ for chart in charts/*; do
   # See https://mikefarah.gitbook.io/yq/commands/merge
   # and https://mikefarah.gitbook.io/yq/usage/convert
   JSON_SCHEMA="${chart}/values.schema.json"
+  YAML_SCHEMA="${chart}/values.schema.yaml"
   if [ ! -f "$JSON_SCHEMA" ] 
   then
-    echo "File $FILE does not exist"
+    echo "File $JSON_SCHEMA does not exist"
     touch "$JSON_SCHEMA"
-    ls "$JSON_SCHEMA"
   fi
-  yq eval-all --tojson "select(fileIndex == 0) * select(filename == \"$chart\"/values.schema.yaml)" definitions.schema.yaml "${chart}"/values.schema.yaml > "${chart}"/values.schema.json
+  yq eval-all --tojson "select(fileIndex == 0) * select(filename == \"$YAML_SCHEMA\")" definitions.schema.yaml "${chart}"/values.schema.yaml > "$JSON_SCHEMA"
 done
 
 echo "done"
